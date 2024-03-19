@@ -82,10 +82,10 @@ function App() {
   return (
     <div>
       <h1>Geolocation App</h1>
-      <button onClick={getUserLocation}>Get User Location</button>
+      <button onClick={getUserLocation}>Get Location</button>
       {userLocation &&
         <div>
-          <h2>View Location</h2>
+          <h2>Locations</h2>
           <button onClick={addJourney}>Save Location</button>
           <p>
             Latitude: {userLocation.latitude}
