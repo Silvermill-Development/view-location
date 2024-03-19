@@ -7,10 +7,15 @@ function App() {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          sessionStorage.setItem('latitude', latitude);
-          sessionStorage.setItem('longitude', longitude);
+          // Set latitude and longitude in local storage
+          localStorage.setItem("latitude", latitude);
+          localStorage.setItem("longitude", longitude);
+
+          // Set latitude and longitude as cookies
+          document.cookie = "latitude=" + latitude;
+          document.cookie = "longitude=" + longitude;
           setUserLocation({ latitude, longitude });
-          window.location.href = 'about:blank';
+          // window.location.href = "about:blank";
         },
         error => {
           console.error("Error getting user location:", error);
@@ -61,7 +66,7 @@ function App() {
       <button onClick={getUserLocation}>Get Location</button>
       {userLocation &&
         <div>
-          <h2>Locations</h2>          
+          <h2>Locations</h2>
           <p>
             Latitude: {userLocation.latitude}
           </p>
