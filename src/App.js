@@ -1,39 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { SERVER_IP } from "./ip";
 function App() {
   const [userLocation, setUserLocation] = useState(null);
-  const [ticketNo, setTicket] = useState("T000013");
-
-  const addJourney = () => {
-    const phpUrl = `${SERVER_IP}api/insert_journey.php`;
-    fetch(phpUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: `ticketNo=${ticketNo}&latitude=${userLocation.latitude}&longitude=${userLocation.longitude}`
-    })
-      .then(response => {
-        return response.text();
-      })
-      .then(data => {
-        console.log("Location Updated : ", data);
-        console.log(`Server Ip : ${SERVER_IP}`);
-        console.log(`Latitude : ${userLocation.latitude}`);
-        console.log(`Longitude : ${userLocation.longitude}`);
-        console.log(`TicketNo : ${ticketNo}`);
-      })
-      .catch(error => {
-        console.log("Error : ", error);
-      });
-  };
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
+          sessionStorage.setItem('latitude', latitude);
+          sessionStorage.setItem('longitude', longitude);
           setUserLocation({ latitude, longitude });
+          window.location.href = 'about:blank';
         },
         error => {
           console.error("Error getting user location:", error);
@@ -47,7 +24,6 @@ function App() {
   useEffect(
     () => {
       if (userLocation) {
-        // Load Bing Maps API script dynamically
         const script = document.createElement("script");
         script.src =
           "https://www.bing.com/api/maps/mapcontrol?key=Aj_sNeyXlOTTq5HnqbrenzIu7Ar3DYlbTbyJ7NQoBf9vwThtZyrANUxW_lbvXCkD&callback=initMap";
@@ -85,8 +61,7 @@ function App() {
       <button onClick={getUserLocation}>Get Location</button>
       {userLocation &&
         <div>
-          <h2>Locations</h2>
-          <button onClick={addJourney}>Save Location</button>
+          <h2>Locations</h2>          
           <p>
             Latitude: {userLocation.latitude}
           </p>
