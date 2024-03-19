@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 function App() {
   const [userLocation, setUserLocation] = useState(null);
-
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          // Set latitude and longitude in local storage
-          localStorage.setItem("latitude", latitude);
-          localStorage.setItem("longitude", longitude);
-
-          // Set latitude and longitude as cookies
-          document.cookie = "latitude=" + latitude;
-          document.cookie = "longitude=" + longitude;
+          const url = `http://localhost/index.php?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
+          window.location.href = url;
           setUserLocation({ latitude, longitude });
-          // window.location.href = "about:blank";
         },
         error => {
           console.error("Error getting user location:", error);
@@ -29,6 +22,7 @@ function App() {
   useEffect(
     () => {
       if (userLocation) {
+        // Load Bing Maps API script dynamically
         const script = document.createElement("script");
         script.src =
           "https://www.bing.com/api/maps/mapcontrol?key=Aj_sNeyXlOTTq5HnqbrenzIu7Ar3DYlbTbyJ7NQoBf9vwThtZyrANUxW_lbvXCkD&callback=initMap";
@@ -65,8 +59,8 @@ function App() {
       <h1>Geolocation App</h1>
       <button onClick={getUserLocation}>Get Location</button>
       {userLocation &&
-        <div>
-          <h2>Locations</h2>
+        <div>         
+          <h2>Locations</h2>          
           <p>
             Latitude: {userLocation.latitude}
           </p>
