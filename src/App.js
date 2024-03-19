@@ -57,7 +57,7 @@ function App() {
       <button onClick={getUserLocation}>Get User Location</button>
       {userLocation && (
         <div>
-          <h2>User Location</h2>
+          <h2>View Location</h2>
           <p>Latitude: {userLocation.latitude}</p>
           <p>Longitude: {userLocation.longitude}</p>
           <div id="map" style={{ width: "100%", height: "400px" }}></div>

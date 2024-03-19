@@ -1,7 +1,7 @@
 {
-  "name": "track_location",
+  "name": "view-location",
   "version": "0.1.0",
-  "homepage": "https://Silvermill-Development.github.io/track_location",
+  "homepage": "https://Silvermill-Development.github.io/view-location",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
