@@ -1,7 +1,35 @@
 import React, { useState, useEffect } from "react";
-
+import {SERVER_IP} from './ip';
 function App() {
   const [userLocation, setUserLocation] = useState(null);
+  const [ticketNo, setTicket] = useState('T000013');
+
+  const addJourneyF = () => {
+    console.log(`Server Ip : ${SERVER_IP}`);
+    console.log(`Latitude : ${userLocation.latitude}`);
+    console.log(`Longitude : ${userLocation.longitude}`);
+    console.log(`TicketNo : ${ticketNo}`);
+  }
+  const addJourney = () => {
+    const phpUrl = `${SERVER_IP}api/insert_journey.php`;
+    fetch(phpUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `ticketNo=${ticketNo}&latitude=${userLocation.latitude}&longitude=${userLocation.longitude}`,
+    })
+      .then(response => {
+        return response.text();
+      })
+      .then(data => {
+        goBack();
+        console.log('Updated : ', data);
+      })
+      .catch(error => {
+        console.log('Error : ', error);
+      });
+  };
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -61,6 +89,7 @@ function App() {
           <p>Latitude: {userLocation.latitude}</p>
           <p>Longitude: {userLocation.longitude}</p>
           <div id="map" style={{ width: "100%", height: "400px" }}></div>
+          <button onClick={addJourneyF}>Save Location</button>
         </div>
       )}
     </div>
