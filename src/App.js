@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./App.css";
 function App() {
   const [userLocation, setUserLocation] = useState(null);
   const getUserLocation = () => {
@@ -6,7 +7,9 @@ function App() {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          const url = `http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
+          const url = `http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php?latitude=${encodeURIComponent(
+            latitude
+          )}&longitude=${encodeURIComponent(longitude)}`;
           window.location.href = url;
           setUserLocation({ latitude, longitude });
         },
@@ -55,20 +58,26 @@ function App() {
   );
 
   return (
-    <div>
-      <h1>Land Location Mesure Project</h1>
-      <button onClick={getUserLocation}>Reload location Location !</button>
-      {userLocation &&
-        <div>         
-          <h2>Get Locations BY app</h2>          
-          <p>
-            Latitude Web: {userLocation.latitude}
-          </p>
-          <p>
-            Longitude Web: {userLocation.longitude}
-          </p>
-          <div id="map" style={{ width: "100%", height: "400px" }} />
-        </div>}
+    <div className="container">
+      <h1>Land Location Measure Project</h1>
+      <button onClick={getUserLocation}>Reload Location !</button>
+      <div className="location-info">
+        {userLocation &&
+          <div>
+            <h2>Get Locations BY app</h2>
+            <div className="latitude-info">
+              <p>
+                Latitude Web: {userLocation.latitude}
+              </p>
+            </div>
+            <div className="longitude-info">
+              <p>
+                Longitude Web: {userLocation.longitude}
+              </p>
+            </div>
+            <div id="map" />
+          </div>}
+      </div>
     </div>
   );
 }
