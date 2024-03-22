@@ -56,11 +56,11 @@ function App() {
 
   return (
     <div>
-      <h1>Geolocation App</h1>
-      <button onClick={getUserLocation}>Get Location</button>
+      <h1>Land Location Mesure</h1>
+      <button onClick={getUserLocation}>Get Location !</button>
       {userLocation &&
         <div>         
-          <h2>Locations</h2>          
+          <h2>Get Locations</h2>          
           <p>
             Latitude: {userLocation.latitude}
           </p>
