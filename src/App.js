@@ -6,7 +6,7 @@ function App() {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          const url = `http://localhost/CSR/LandRegistration.php?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
+          const url = `http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
           window.location.href = url;
           setUserLocation({ latitude, longitude });
         },
@@ -56,16 +56,16 @@ function App() {
 
   return (
     <div>
-      <h1>Land Location Mesure</h1>
-      <button onClick={getUserLocation}>Get Location !</button>
+      <h1>Land Location Mesure Project</h1>
+      <button onClick={getUserLocation}>Reload location Location !</button>
       {userLocation &&
         <div>         
-          <h2>Get Locations</h2>          
+          <h2>Get Locations BY app</h2>          
           <p>
-            Latitude: {userLocation.latitude}
+            Latitude Web: {userLocation.latitude}
           </p>
           <p>
-            Longitude: {userLocation.longitude}
+            Longitude Web: {userLocation.longitude}
           </p>
           <div id="map" style={{ width: "100%", height: "400px" }} />
         </div>}
