@@ -6,7 +6,7 @@ function App() {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          const url = `http://localhost/index.php?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
+          const url = `http://localhost/CSR/LandRegistration.php?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}`;
           window.location.href = url;
           setUserLocation({ latitude, longitude });
         },
