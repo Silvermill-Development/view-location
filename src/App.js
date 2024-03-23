@@ -2,14 +2,30 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 function App() {
   const [userLocation, setUserLocation] = useState(null);
+  const [type, setType] = useState("");
+  const [empno, setEmpNo] = useState("");
   const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          const url = `http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php?latitude=${encodeURIComponent(
-            latitude
-          )}&longitude=${encodeURIComponent(longitude)}`;
+          let url = "";
+          // http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php
+          // http://myportal.silvermillgroup.lk:8080/CSR/MemberRegistration.php
+          if (type === "land") {
+            url = `http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php?latitude=${encodeURIComponent(
+              latitude
+            )}&longitude=${encodeURIComponent(
+              longitude
+            )}&type=${encodeURIComponent(type)}&epf=${encodeURIComponent(empno)}`;
+          } else {
+            url = `http://myportal.silvermillgroup.lk:8080/CSR/MemberRegistration.php?latitude=${encodeURIComponent(
+              latitude
+            )}&longitude=${encodeURIComponent(
+              longitude
+            )}&type=${encodeURIComponent(type)}&empno=${encodeURIComponent(empno)}`;
+          }
+
           window.location.href = url;
           setUserLocation({ latitude, longitude });
         },
@@ -57,6 +73,20 @@ function App() {
     [userLocation]
   );
 
+  useEffect(() => {
+    // Function to parse query parameters from URL
+    const getQueryParam = name => {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    };
+
+    // Usage
+    const type = getQueryParam("type");
+    const empno = getQueryParam("empno");
+    setType(type);
+    setEmpNo(empno);
+  }, []);
+
   return (
     <div className="container">
       <h1>Land Location Measure Project</h1>
@@ -73,6 +103,11 @@ function App() {
             <div className="longitude-info">
               <p>
                 Longitude Web: {userLocation.longitude}
+              </p>
+            </div>
+            <div className="longitude-info">
+              <p>
+                Type: {type}
               </p>
             </div>
             <div id="map" />
