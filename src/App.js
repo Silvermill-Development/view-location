@@ -22,7 +22,7 @@ function App() {
               empno
             )}`;
           } else if (type === "rec") {
-            url = `http://localhost/CSR/Record_Keeping.php?latitude=${encodeURIComponent(
+            url = `http://myportal.silvermillgroup.lk:8080/CSR/Record_Keeping.php?latitude=${encodeURIComponent(
               latitude
             )}&longitude=${encodeURIComponent(
               longitude
