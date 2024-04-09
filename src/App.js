@@ -12,18 +12,29 @@ function App() {
           let url = "";
           // http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php
           // http://myportal.silvermillgroup.lk:8080/CSR/MemberRegistration.php
+          // http://localhost/CSR/Record_Keeping.php
           if (type === "land") {
             url = `http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php?latitude=${encodeURIComponent(
               latitude
             )}&longitude=${encodeURIComponent(
               longitude
-            )}&type=${encodeURIComponent(type)}&epf=${encodeURIComponent(empno)}`;
+            )}&type=${encodeURIComponent(type)}&epf=${encodeURIComponent(
+              empno
+            )}`;
+          } else if (type === "rec") {
+            url = `http://localhost/CSR/Record_Keeping.php?latitude=${encodeURIComponent(
+              latitude
+            )}&longitude=${encodeURIComponent(
+              longitude
+            )}`;
           } else {
             url = `http://myportal.silvermillgroup.lk:8080/CSR/MemberRegistration.php?latitude=${encodeURIComponent(
               latitude
             )}&longitude=${encodeURIComponent(
               longitude
-            )}&type=${encodeURIComponent(type)}&empno=${encodeURIComponent(empno)}`;
+            )}&type=${encodeURIComponent(type)}&empno=${encodeURIComponent(
+              empno
+            )}`;
           }
 
           window.location.href = url;
