@@ -10,9 +10,6 @@ function App() {
         position => {
           const { latitude, longitude } = position.coords;
           let url = "";
-          // http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php
-          // http://myportal.silvermillgroup.lk:8080/CSR/MemberRegistration.php
-          // http://localhost/CSR/Record_Keeping.php
           if (type === "land") {
             url = `http://myportal.silvermillgroup.lk:8080/CSR/LandRegistration.php?latitude=${encodeURIComponent(
               latitude
